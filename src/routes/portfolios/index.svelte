@@ -34,11 +34,13 @@
 	import { Button, Table } from "sveltestrap";
 	import { base } from "$app/paths";
 	import type { Portfolio } from "$lib/portfolio";
-import PortfolioDetail from "$lib/PortfolioDetail.svelte";
+	import PortfolioDetail from "$lib/PortfolioDetail.svelte";
 	export let portfolios: Portfolio[] = [];
+	
+	let selectedPortfolio = portfolios[0] ?? null;
 </script>
 
-<h3>Depots</h3>
+<h3>Portfolios</h3>
 
 <Table hover striped borderless size="sm">
 	<thead>
@@ -58,23 +60,6 @@ import PortfolioDetail from "$lib/PortfolioDetail.svelte";
 		{/each}
 	</tbody>
 </Table>
-<!--<Table hover>
-	<tbody>
-		{#each entries as entry, index}
-			<tr>
-				<td><b>{entry.name}</b><br /><code>{entry.isin}</code></td>
-				<td>{entry.quantity}</td>
-				<td>{entry.buyPrice.toFixed(2)} €</td>
-                <td>{entry.price.toFixed(2)} €</td>
-				<td>
-					<span>
-						{entry.profit.toFixed(2)} € ({(entry.profitPercentage*100).toFixed(2)} %)
-					</span>
-				</td>
-			</tr>
-		{/each}
-	</tbody>
-</Table>-->
 
 <style>
 	thead td {
@@ -109,4 +94,6 @@ import PortfolioDetail from "$lib/PortfolioDetail.svelte";
 	}
 </style>
 
-<PortfolioDetail />
+{#if selectedPortfolio}
+	<PortfolioDetail portfolio={selectedPortfolio}/>
+{/if}
