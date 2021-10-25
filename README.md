@@ -1,6 +1,8 @@
-# create-svelte
+# Portfolio UI
 
-Everything you need to build a Svelte project, powered by [`create-svelte`](https://github.com/sveltejs/kit/tree/master/packages/create-svelte);
+This is primarily a pet project to play around with the idea of a web-based UI for Portfolio Performance, following the ideas in https://github.com/buchen/portfolio/issues/1921.
+
+It fetches data from Portfolio Performance using a REST API, which is currently in progress in this fork: https://github.com/oxisto/portfolio/tree/rest-api.
 
 ## Creating a project
 

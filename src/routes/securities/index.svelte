@@ -1,4 +1,7 @@
 <script lang="ts" context="module">
+import type { Security } from "$lib/security";
+
+
 	/**
 	 * @type {import('@sveltejs/kit').Load}
 	 */
@@ -12,13 +15,18 @@
         name: string
     }
 	export async function load({ page, fetch, session, context }) {
-        const apiUrl = "/v1/depot"
-		return fetch(apiUrl)
+        const apiUrl = "/api/v0/securities"
+		return fetch(apiUrl, {
+            headers: {
+                'x-pp-token': 'mytoken',
+                'x-pp-file': '/Users/oxisto/depot.xml'
+            }
+        })
         .then((res) => res.json())
-        .then((response: DepotEntry[]) => {
+        .then((response: Security[]) => {
             return {
 					props: {
-						entries: response
+						securities: response
 					}
 				};
         });
@@ -29,22 +37,15 @@
 <script lang="ts">
 	import { Button, Table } from 'sveltestrap';
 	import { base } from '$app/paths';
-	export let entries: DepotEntry[] = [];
+	export let securities: Security[] = [];
 </script>
 
 <Table hover>
 	<tbody>
-		{#each entries as entry, index}
+		{#each securities as security, index}
 			<tr>
-				<td><b>{entry.name}</b><br /><code>{entry.isin}</code></td>
-				<td>{entry.quantity}</td>
-				<td>{entry.buyPrice.toFixed(2)} €</td>
-                <td>{entry.price.toFixed(2)} €</td>
-				<td>
-					<span>
-						{entry.profit.toFixed(2)} € ({(entry.profitPercentage*100).toFixed(2)} %)
-					</span>
-				</td>
+				<td><b>{security.name}</b><br /><code>{security.isin}</code></td>
+				<td>{(security.latest?.value / 100000000.0).toFixed(2)} €<br /><code>{security.latest?.date}</code></td>
 			</tr>
 		{/each}
 	</tbody>

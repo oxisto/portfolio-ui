@@ -13,7 +13,7 @@ const config = {
 		vite: {
 			server: {
 				proxy: {
-					'/v1': 'http://localhost:8080'
+					'/api/v0': 'http://localhost:5712'
 				}
 			}
 		}
