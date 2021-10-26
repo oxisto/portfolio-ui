@@ -109,15 +109,22 @@
             <tbody>
                 {#each snapshot.positions as position, index}
                     <tr>
-                        <td width="500">{position.investment.name}</td>
+                        <td width="500" class="first"
+                            >{position.investment.name}</td
+                        >
                         <td>{position.shares}</td>
                         <td>{position.investment.ticker}</td>
-                        <td
-                            >{(
+                        <td>
+                            {$number(
                                 position.record.fifoCostPerSharesHeld.amount /
-                                100000000.0
-                            ).toFixed(2)} €</td
-                        >
+                                    100000000.0,
+                                {
+                                    locale: numberLocale,
+                                    style: "currency",
+                                    currency: currency,
+                                }
+                            )}
+                        </td>
                         <td>
                             {$number(position.price.value / 100000000.0, {
                                 locale: numberLocale,
@@ -134,8 +141,8 @@
                                     style: "currency",
                                     currency: currency,
                                 }
-                            )}</td
-                        >
+                            )}
+                        </td>
                         <td style="text-align: right;">
                             <div
                                 class={position.record.capitalGainsOnHoldings
@@ -154,6 +161,7 @@
                                 )}
                             </div>
                         </td>
+                        <td class="last" />
                     </tr>
                 {/each}
             </tbody>
@@ -170,11 +178,9 @@
         padding-left: 1rem;
     }
 
-    thead td {
-        color: gray;
-        font-weight: bold;
-        font-size: small;
-        padding-bottom: 0.5rem;
+    /* TODO: somehow does not work in app.css */
+    table tbody tr:hover td {
+        color: white;
     }
 
     .profit {

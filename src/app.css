@@ -1,0 +1,29 @@
+thead td {
+    color: gray;
+    font-weight: bold;
+    font-size: small;
+    padding-bottom: 0.5rem;
+}
+
+thead td.first {
+    padding-left: 0.75rem;
+}
+
+tbody td.first {
+    border-top-left-radius: 6px;
+    border-bottom-left-radius: 6px;
+    padding-left: 0.75rem;
+}
+
+tbody td.last {
+    border-top-right-radius: 6px;
+    border-bottom-right-radius: 6px;
+}
+
+h3 {
+    font-weight: 600;
+}
+
+table tbody tr:hover {
+    background: #336f90;
+}

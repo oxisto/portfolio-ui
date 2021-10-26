@@ -2,15 +2,6 @@
 	/**
 	 * @type {import('@sveltejs/kit').Load}
 	 */
-	interface DepotEntry {
-		price: any;
-		buyPrice: any;
-		profit: any;
-		profitPercentage: any;
-		quantity: any;
-		isin: string;
-		name: string;
-	}
 	export async function load({ page, fetch, session, context }) {
 		const apiUrl = "/api/v0/portfolios";
 		return fetch(apiUrl, {
@@ -36,7 +27,13 @@
 	import type { Portfolio } from "$lib/portfolio";
 	import PortfolioDetail from "$lib/PortfolioDetail.svelte";
 	import { file } from "$lib/global";
+	import { number } from "svelte-i18n";
 	export let portfolios: Portfolio[] = [];
+
+	let numberLocale = /*Intl.NumberFormat().resolvedOptions().locale*/ "de";
+
+	// TODO: fetch this from the portfolio API
+	let currency = "EUR";
 
 	let selectedPortfolio = portfolios[0] ?? null;
 </script>
@@ -55,7 +52,13 @@
 			<tr>
 				<td class="first">{portfolio.name}</td>
 				<td>TBD</td>
-				<td>{(portfolio.snapshotValue.amount / 100.0).toFixed(2)} €</td>
+				<td>
+					{$number(portfolio.snapshotValue.amount / 100.0, {
+						locale: numberLocale,
+						style: "currency",
+						currency: currency,
+					})}
+				</td>
 				<td class="last" />
 			</tr>
 		{/each}
@@ -67,36 +70,7 @@
 {/if}
 
 <style>
-	thead td {
-		color: gray;
-		font-weight: bold;
-		font-size: small;
-		padding-bottom: 0.5rem;
-	}
-
-	thead td.first {
-		padding-left: 0.75rem;
-	}
-
-	tbody td.first {
-		border-top-left-radius: 6px;
-		border-bottom-left-radius: 6px;
-		padding-left: 0.75rem;
-	}
-
-	tbody td.last {
-		border-top-right-radius: 6px;
-		border-bottom-right-radius: 6px;
-	}
-
-	h3 {
-		font-weight: 600;
-	}
-
-	table tbody tr:hover {
-		background: #336f90;
-	}
-
+	/* TODO: somehow does not work in app.css */
 	table tbody tr:hover td {
 		color: white;
 	}
