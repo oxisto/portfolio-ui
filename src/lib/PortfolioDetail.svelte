@@ -16,9 +16,12 @@
 
     let numberLocale = /*Intl.NumberFormat().resolvedOptions().locale*/ "de";
 
-    onMount(async () => {
+    // react if portfolio.uuid changes
+    $: {
+        console.log("portfolio uuid changed");
+
         const apiUrl = `/api/v0/portfolios/${portfolio.uuid}/assets`;
-        return fetch(apiUrl, {
+        fetch(apiUrl, {
             headers: {
                 "x-pp-token": "mytoken",
                 "x-pp-file": $file,
@@ -27,14 +30,15 @@
             .then((res) => res.json())
             .then((response: PortfolioSnapshot) => {
                 snapshot = response;
-
-                totalMarketValue = calculateTotalMarketValue(
-                    snapshot.positions
-                );
-                totalProfit = calculateTotalProfit(snapshot.positions);
-                snapshot.positions = snapshot.positions.sort(sortFunction);
             });
-    });
+    }
+
+    // react if snapshot changes
+    $: if (snapshot) {
+        totalMarketValue = calculateTotalMarketValue(snapshot.positions);
+        totalProfit = calculateTotalProfit(snapshot.positions);
+        snapshot.positions = snapshot.positions.sort(sortFunction);
+    }
 
     function sortFunction(a: SecurityPosition, b: SecurityPosition): number {
         return a.investment.name.toLowerCase() > b.investment.name.toLowerCase()

@@ -35,6 +35,10 @@
 	let numberLocale = /*Intl.NumberFormat().resolvedOptions().locale*/ "de";
 
 	let selectedPortfolio = portfolios[0] ?? null;
+
+	function selectPortfolio(portfolio: Portfolio) {
+		selectedPortfolio = portfolio;
+	}
 </script>
 
 <h3>Portfolios</h3>
@@ -50,7 +54,7 @@
 	</thead>
 	<tbody>
 		{#each portfolios as portfolio, index}
-			<tr>
+			<tr on:click={() => selectPortfolio(portfolio)}>
 				<td>{portfolio.name}</td>
 				<td>TBD</td>
 				<td>
