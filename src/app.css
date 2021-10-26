@@ -5,17 +5,17 @@ thead td {
     padding-bottom: 0.5rem;
 }
 
-thead td.first {
+thead td:first-child {
     padding-left: 0.75rem;
 }
 
-tbody td.first {
+tbody td:first-child {
     border-top-left-radius: 6px;
     border-bottom-left-radius: 6px;
     padding-left: 0.75rem;
 }
 
-tbody td.last {
+tbody td:last-child {
     border-top-right-radius: 6px;
     border-bottom-right-radius: 6px;
 }

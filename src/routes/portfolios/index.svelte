@@ -42,7 +42,7 @@
 
 <Table hover striped borderless size="sm">
 	<thead>
-		<td class="first">Name</td>
+		<td>Name</td>
 		<td>Reference Account</td>
 		<td>Volume</td>
 		<td>Actions</td>
@@ -50,7 +50,7 @@
 	<tbody>
 		{#each portfolios as portfolio, index}
 			<tr>
-				<td class="first">{portfolio.name}</td>
+				<td>{portfolio.name}</td>
 				<td>TBD</td>
 				<td>
 					{$number(portfolio.snapshotValue.amount / 100.0, {

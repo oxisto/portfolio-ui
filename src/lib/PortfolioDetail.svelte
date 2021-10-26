@@ -97,7 +97,7 @@
 
         <Table hover striped borderless size="sm mt-4">
             <thead>
-                <td class="first">Name</td>
+                <td>Name</td>
                 <td>Shares</td>
                 <td>Symbol</td>
                 <td>Purchase Price</td>
@@ -109,9 +109,7 @@
             <tbody>
                 {#each snapshot.positions as position, index}
                     <tr>
-                        <td width="500" class="first"
-                            >{position.investment.name}</td
-                        >
+                        <td width="500">{position.investment.name}</td>
                         <td>{position.shares}</td>
                         <td>{position.investment.ticker}</td>
                         <td>
