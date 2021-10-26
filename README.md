@@ -4,19 +4,10 @@ This is primarily a pet project to play around with the idea of a web-based UI f
 
 It fetches data from Portfolio Performance using a REST API, which is currently in progress in this fork: https://github.com/oxisto/portfolio/tree/rest-api.
 
-## Creating a project
+Here is a screenshot showing an early stage with data coming from Portfolio Performance using the REST API. The data itself is fake though.
 
-If you're seeing this, you've probably already done this step. Congrats!
+<img width="1674" alt="Screenshot 2021-10-26 at 11 50 13" src="https://user-images.githubusercontent.com/12459061/138854552-c9c2146f-9355-4dd6-9666-6dcff99d2976.png">
 
-```bash
-# create a new project in the current directory
-npm init svelte@next
-
-# create a new project in my-app
-npm init svelte@next my-app
-```
-
-> Note: the `@next` is temporary
 
 ## Developing
 
