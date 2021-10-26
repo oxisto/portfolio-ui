@@ -1,5 +1,7 @@
 <script lang="ts" context="module">
     import type { Security } from "$lib/security";
+    import { file } from "$lib/global";
+    import { get } from "svelte/store";
 
     /**
      * @type {import('@sveltejs/kit').Load}
@@ -18,7 +20,7 @@
         return fetch(apiUrl, {
             headers: {
                 "x-pp-token": "mytoken",
-                "x-pp-file": file,
+                "x-pp-file": get(file),
             },
         })
             .then((res) => res.json())
@@ -35,7 +37,6 @@
 <script lang="ts">
     import { Button, Table } from "sveltestrap";
     import { base } from "$app/paths";
-    import { file } from "$lib/global";
     export let securities: Security[] = [];
 </script>
 

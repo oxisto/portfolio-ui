@@ -24,7 +24,7 @@
         return fetch(apiUrl, {
             headers: {
                 "x-pp-token": "mytoken",
-                "x-pp-file": file,
+                "x-pp-file": $file,
             },
         })
             .then((res) => res.json())

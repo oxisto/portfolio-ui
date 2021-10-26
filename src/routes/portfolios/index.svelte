@@ -1,4 +1,7 @@
 <script lang="ts" context="module">
+	import { file } from "$lib/global";
+	import { get } from "svelte/store";
+
 	/**
 	 * @type {import('@sveltejs/kit').Load}
 	 */
@@ -7,7 +10,7 @@
 		return fetch(apiUrl, {
 			headers: {
 				"x-pp-token": "mytoken",
-				"x-pp-file": file,
+				"x-pp-file": get(file),
 			},
 		})
 			.then((res) => res.json())
@@ -26,7 +29,6 @@
 	import { base } from "$app/paths";
 	import type { Portfolio } from "$lib/portfolio";
 	import PortfolioDetail from "$lib/PortfolioDetail.svelte";
-	import { file } from "$lib/global";
 	import { number } from "svelte-i18n";
 	export let portfolios: Portfolio[] = [];
 
