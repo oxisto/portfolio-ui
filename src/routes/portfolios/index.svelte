@@ -54,7 +54,10 @@
 	</thead>
 	<tbody>
 		{#each portfolios as portfolio, index}
-			<tr on:click={() => selectPortfolio(portfolio)}>
+			<tr
+				on:click={() => selectPortfolio(portfolio)}
+				class={portfolio == selectedPortfolio ? "selected" : ""}
+			>
 				<td>{portfolio.name}</td>
 				<td>TBD</td>
 				<td>
@@ -73,10 +76,3 @@
 {#if selectedPortfolio}
 	<PortfolioDetail portfolio={selectedPortfolio} />
 {/if}
-
-<style>
-	/* TODO: somehow does not work in app.css */
-	table tbody tr:hover td {
-		color: white;
-	}
-</style>

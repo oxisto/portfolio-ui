@@ -31,8 +31,14 @@ tbody td:last-child {
     border-bottom-right-radius: 6px;
 }
 
-table tbody tr:hover {
+.table-striped>tbody>tr.selected>* {
+    /* make sure that selected is always more important than hover */
     background: #336f90;
+    color: white;
+}
+
+table tbody tr:hover {
+    background: #cde3ef;
 }
 
 h3 {
@@ -50,6 +56,7 @@ h5 {
 body {
     font-size: 0.9rem;
     letter-spacing: -0.35px;
+    cursor: default;
 }
 
 main {

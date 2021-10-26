@@ -217,17 +217,12 @@
         border-left-color: #336f90;
         border-left-style: solid;
 
-        /* since the css border is INSIDE the element, 
+        /* since the css border is INSIDE the element,
         this a little trick so that it looks like the 
         border is offset to the outside */
         border-left-width: 5px;
         margin-left: -15px;
         padding-left: 10px;
-    }
-
-    /* TODO: somehow does not work in app.css */
-    table tbody tr:hover td {
-        color: white;
     }
 
     .profit {
