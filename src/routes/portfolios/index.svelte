@@ -16,7 +16,7 @@
 		return fetch(apiUrl, {
 			headers: {
 				"x-pp-token": "mytoken",
-				"x-pp-file": "/Users/oxisto/depot.xml",
+				"x-pp-file": file,
 			},
 		})
 			.then((res) => res.json())
@@ -35,8 +35,9 @@
 	import { base } from "$app/paths";
 	import type { Portfolio } from "$lib/portfolio";
 	import PortfolioDetail from "$lib/PortfolioDetail.svelte";
+	import { file } from "$lib/global";
 	export let portfolios: Portfolio[] = [];
-	
+
 	let selectedPortfolio = portfolios[0] ?? null;
 </script>
 
@@ -55,11 +56,15 @@
 				<td class="first">{portfolio.name}</td>
 				<td>TBD</td>
 				<td>{(portfolio.snapshotValue.amount / 100.0).toFixed(2)} €</td>
-				<td class="last"></td>
+				<td class="last" />
 			</tr>
 		{/each}
 	</tbody>
 </Table>
+
+{#if selectedPortfolio}
+	<PortfolioDetail portfolio={selectedPortfolio} />
+{/if}
 
 <style>
 	thead td {
@@ -74,14 +79,14 @@
 	}
 
 	tbody td.first {
-		border-top-left-radius: 10px;
-		border-bottom-left-radius: 10px;
+		border-top-left-radius: 6px;
+		border-bottom-left-radius: 6px;
 		padding-left: 0.75rem;
 	}
 
 	tbody td.last {
-		border-top-right-radius: 10px;
-		border-bottom-right-radius: 10px;
+		border-top-right-radius: 6px;
+		border-bottom-right-radius: 6px;
 	}
 
 	h3 {
@@ -89,11 +94,10 @@
 	}
 
 	table tbody tr:hover {
-    	background: #336F90;
-    	color: white;
+		background: #336f90;
+	}
+
+	table tbody tr:hover td {
+		color: white;
 	}
 </style>
-
-{#if selectedPortfolio}
-	<PortfolioDetail portfolio={selectedPortfolio}/>
-{/if}

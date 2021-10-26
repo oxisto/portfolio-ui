@@ -1,9 +1,10 @@
 <script lang="ts">
 	import Navigation from "$lib/Navigation.svelte";
 	import { Nav, Navbar, NavbarBrand, NavLink, Styles } from "sveltestrap";
-</script>
 
-<Styles />
+	import 'bootstrap/dist/css/bootstrap.min.css';
+	import '../app.css';
+</script>
 
 <div class="side-navbar nav-active d-flex justify-content-between flex-wrap flex-column"
 	id="sidebar">
