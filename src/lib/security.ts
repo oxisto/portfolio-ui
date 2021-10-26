@@ -25,7 +25,9 @@ export interface Quote {
 
 export interface SecurityPerformanceRecord {
     fifoCostPerSharesHeld: Quote
+    quote: Quote
     capitalGainsOnHoldings: Money
+    marketValue: Money
 }
 
 export interface SecurityPosition {

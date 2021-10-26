@@ -16,9 +16,6 @@
 
     let numberLocale = /*Intl.NumberFormat().resolvedOptions().locale*/ "de";
 
-    // TODO: fetch this from the portfolio API
-    let currency = "EUR";
-
     onMount(async () => {
         const apiUrl = `/api/v0/portfolios/${portfolio.uuid}/assets`;
         return fetch(apiUrl, {
@@ -35,14 +32,21 @@
                     snapshot.positions
                 );
                 totalProfit = calculateTotalProfit(snapshot.positions);
+                snapshot.positions = snapshot.positions.sort(sortFunction);
             });
     });
+
+    function sortFunction(a: SecurityPosition, b: SecurityPosition): number {
+        return a.investment.name.toLowerCase() > b.investment.name.toLowerCase()
+            ? 1
+            : -1;
+    }
 
     function calculateTotalMarketValue(positions: SecurityPosition[]): number {
         var total = 0;
 
         for (let position of positions) {
-            total += (position.price.value / 100000000.0) * position.shares;
+            total += position.record.marketValue.amount / 100.0;
         }
 
         return total;
@@ -65,7 +69,7 @@
 
         <div
             class="container"
-            style="width: max-content; margin-left: 0; margin-right: 0; padding-left: 0"
+            style="width: max-content; margin-left: 0.75rem; margin-right: 0; padding-left: 0"
         >
             <div class="row">
                 <div class="col-sm">
@@ -97,14 +101,19 @@
 
         <Table hover striped borderless size="sm mt-4">
             <thead>
-                <td>Name</td>
-                <td>Shares</td>
-                <td>Symbol</td>
-                <td>Purchase Price</td>
-                <td>Quote</td>
-                <td>Market Value</td>
-                <td style="text-align: right;">Profit / Loss</td>
-                <td>Actions</td>
+                <tr>
+                    <th>Name</th>
+                    <th>Shares</th>
+                    <th>Symbol</th>
+                    <th>Purchase Price</th>
+                    <th>Quote</th>
+                    <th>Market Value</th>
+                    <th style="text-align: right;">Profit / Loss</th>
+                    <th>Actions</th>
+                </tr>
+                <tr>
+                    <td colspan="8">Equity</td>
+                </tr>
             </thead>
             <tbody>
                 {#each snapshot.positions as position, index}
@@ -119,25 +128,32 @@
                                 {
                                     locale: numberLocale,
                                     style: "currency",
-                                    currency: currency,
+                                    currency:
+                                        position.record.fifoCostPerSharesHeld
+                                            .currencyCode,
                                 }
                             )}
                         </td>
                         <td>
-                            {$number(position.price.value / 100000000.0, {
-                                locale: numberLocale,
-                                style: "currency",
-                                currency: currency,
-                            })}
-                        </td>
-                        <td
-                            >{$number(
-                                (position.price.value / 100000000.0) *
-                                    position.shares,
+                            {$number(
+                                position.record.quote.amount / 100000000.0,
                                 {
                                     locale: numberLocale,
                                     style: "currency",
-                                    currency: currency,
+                                    currency:
+                                        position.record.quote.currencyCode,
+                                }
+                            )}
+                        </td>
+                        <td>
+                            {$number(
+                                position.record.marketValue.amount / 100.0,
+                                {
+                                    locale: numberLocale,
+                                    style: "currency",
+                                    currency:
+                                        position.record.marketValue
+                                            .currencyCode,
                                 }
                             )}
                         </td>
@@ -154,7 +170,10 @@
                                     {
                                         locale: numberLocale,
                                         style: "currency",
-                                        currency: currency,
+                                        currency:
+                                            position.record
+                                                .capitalGainsOnHoldings
+                                                .currencyCode,
                                     }
                                 )}
                             </div>
@@ -163,6 +182,27 @@
                     </tr>
                 {/each}
             </tbody>
+            <tfoot>
+                <tr>
+                    <td colspan="5">Total</td>
+                    <td>
+                        {$number(totalMarketValue, {
+                            locale: numberLocale,
+                            style: "currency",
+                            currency: "EUR",
+                        })}
+                    </td>
+                    <td style="text-align: right;">
+                        <div class={totalProfit < 0 ? "loss" : "profit"}>
+                            {$number(totalProfit, {
+                                locale: numberLocale,
+                                style: "currency",
+                                currency: "EUR",
+                            })}
+                        </div>
+                    </td>
+                </tr>
+            </tfoot>
         </Table>
     </div>
 {/if}
@@ -170,10 +210,15 @@
 <style>
     #details {
         margin-top: 3rem;
-        border-left-width: 5px;
         border-left-color: #336f90;
         border-left-style: solid;
-        padding-left: 1rem;
+
+        /* since the css border is INSIDE the element, 
+        this a little trick so that it looks like the 
+        border is offset to the outside */
+        border-left-width: 5px;
+        margin-left: -15px;
+        padding-left: 10px;
     }
 
     /* TODO: somehow does not work in app.css */
@@ -234,7 +279,7 @@
     .market-value-title {
         color: gray;
         font-weight: bold;
-        font-size: small;
         padding-bottom: 0.5rem;
+        font-size: small;
     }
 </style>

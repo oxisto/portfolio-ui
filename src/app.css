@@ -1,18 +1,29 @@
-thead td {
-    color: gray;
+thead th {
+    color: #848489;
     font-weight: bold;
-    font-size: small;
     padding-bottom: 0.5rem;
+    font-size: small;
 }
 
-thead td:first-child {
+thead>tr>td {
+    font-weight: bold;
+}
+
+tfoot>tr>td {
+    font-weight: bold;
+}
+
+tr>*:first-child {
+    padding-left: 0.75rem;
+}
+
+tbody>tr>*:first-child {
     padding-left: 0.75rem;
 }
 
 tbody td:first-child {
     border-top-left-radius: 6px;
     border-bottom-left-radius: 6px;
-    padding-left: 0.75rem;
 }
 
 tbody td:last-child {
@@ -20,10 +31,27 @@ tbody td:last-child {
     border-bottom-right-radius: 6px;
 }
 
-h3 {
-    font-weight: 600;
-}
-
 table tbody tr:hover {
     background: #336f90;
+}
+
+h3 {
+    font-weight: 600;
+    padding-left: 0.75rem;
+}
+
+h5 {
+    color: #4F4F4F;
+    padding-bottom: 1.5rem;
+    padding-left: 0.75rem;
+    font-weight: bold;
+}
+
+body {
+    font-size: 0.9rem;
+    letter-spacing: -0.35px;
+}
+
+main {
+    padding-left: 0.4rem;
 }

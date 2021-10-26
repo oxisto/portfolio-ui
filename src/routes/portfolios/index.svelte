@@ -34,9 +34,6 @@
 
 	let numberLocale = /*Intl.NumberFormat().resolvedOptions().locale*/ "de";
 
-	// TODO: fetch this from the portfolio API
-	let currency = "EUR";
-
 	let selectedPortfolio = portfolios[0] ?? null;
 </script>
 
@@ -44,10 +41,12 @@
 
 <Table hover striped borderless size="sm">
 	<thead>
-		<td>Name</td>
-		<td>Reference Account</td>
-		<td>Volume</td>
-		<td>Actions</td>
+		<tr>
+			<th>Name</th>
+			<th>Reference Account</th>
+			<th>Volume</th>
+			<th>Actions</th>
+		</tr>
 	</thead>
 	<tbody>
 		{#each portfolios as portfolio, index}
@@ -58,7 +57,7 @@
 					{$number(portfolio.snapshotValue.amount / 100.0, {
 						locale: numberLocale,
 						style: "currency",
-						currency: currency,
+						currency: portfolio.snapshotValue.currencyCode,
 					})}
 				</td>
 				<td class="last" />
