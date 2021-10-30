@@ -1,4 +1,4 @@
-import type { SecurityPosition } from "./security";
+import type { SecurityPerformanceRecord, SecurityPosition } from "./security";
 
 export interface Portfolio {
     name: string
@@ -6,9 +6,11 @@ export interface Portfolio {
     snapshotValue: Money
 }
 
-export interface PortfolioSnapshot {
-    portfolioId: string
-    positions: SecurityPosition[]
+export interface AssetElement {
+    position: SecurityPosition
+    classification: string
+    valuation: Money
+    performance: SecurityPerformanceRecord
 }
 
 export interface Money {

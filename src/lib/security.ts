@@ -34,7 +34,6 @@ export interface SecurityPosition {
     investment: /*Investment*/Security
     price: SecurityPrice
     shares: number
-    record: SecurityPerformanceRecord
 }
 
 export interface SecurityPrice {
